@@ -16,17 +16,44 @@ public class App
 		int gameVersion = 0;
 		int maxNumRounds = 0;
 		int seedNumber = 0;
+
 		System.out.print("Enter game version 1, 2, or 3: ");
 		gameVersion = in.nextInt();
-		System.out.print("Enter number of rounds to play: ");
-		maxNumRounds = in.nextInt();
+
+		if(gameVersion == 1){
+			System.out.print("Enter number of rounds to play: ");
+			maxNumRounds = in.nextInt();
+		}
+		else{
+			maxNumRounds = 0;
+		}
+
 		System.out.print("Seed for random number generator: ");
-		maxNumRounds = in.nextInt();
+		seedNumber = in.nextInt();
+
 		in.close();
+
+		switch(gameVersion){
+			case 1:
+				System.out.println("v1 " + maxNumRounds + " " + seedNumber);
+				break;
+			case 2:
+				System.out.println("v2 " + maxNumRounds + " " + seedNumber);
+				break;
+			case 3:
+				System.out.println("v3 " + maxNumRounds + " " + seedNumber);
+				break;
+			default:
+
+		}
+
+		//TEST PRINT STATEMENTS
+		/*
+		System.out.println(Cards.createDeck());
 		System.out.print("Game Version chosen: "+gameVersion);
 		System.out.print("\nNumber of rounds: "+maxNumRounds);
 		System.out.print("\nSeed number: "+seedNumber);
-		System.out.println(Cards.createDeck());
+		*/
 		System.exit(0);
 	}
 
