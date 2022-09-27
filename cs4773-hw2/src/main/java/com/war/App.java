@@ -33,6 +33,8 @@ public class App
 
 		in.close();
 
+		Cards.createDeck();
+
 		switch(gameVersion){
 			case 1:
 				System.out.println("v1 " + maxNumRounds + " " + seedNumber);
