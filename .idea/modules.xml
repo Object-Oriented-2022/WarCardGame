@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/WarCardGame.iml" filepath="$PROJECT_DIR$/.idea/WarCardGame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cs4773-hw2/cs4773-hw2.iml" filepath="$PROJECT_DIR$/cs4773-hw2/cs4773-hw2.iml" />
+    </modules>
+  </component>
+</project>
