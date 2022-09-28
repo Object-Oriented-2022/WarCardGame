@@ -6,9 +6,9 @@ import static com.war.DeckManipulation.shuffleDeck;
 
 
 public class Cards {
-    private Suit suit;
-    private Value value;
-    private int rank;
+    public Suit suit;
+    public Value value;
+    public int rank;
     private static ArrayList<Cards> cardDeck = new ArrayList<>();
 
     public Cards(Suit suit, Value value, int rank) {
