@@ -2,6 +2,9 @@ package com.war;
 
 import java.util.ArrayList;
 
+import static com.war.DeckManipulation.shuffleDeck;
+
+
 public class Cards {
     private Suit suit;
     private Value value;
@@ -13,7 +16,7 @@ public class Cards {
         this.value = value;
         this.rank = rank;
     }
-    static ArrayList<Cards> createDeck(){
+    static ArrayList<Cards> createDeck(int seed){
         for(int i =1; i < 15; i++){
             switch (i){
                 case 1:
@@ -38,6 +41,7 @@ public class Cards {
                     i = 1;
             }
         }
+        shuffleDeck(cardDeck, seed);
         return cardDeck;
     }
 
@@ -48,6 +52,6 @@ public class Cards {
                 "suit=" + suit +
                 ", value=" + value +
                 ", rank=" + rank +
-                '}';
+                "} \n";
     }
 }
