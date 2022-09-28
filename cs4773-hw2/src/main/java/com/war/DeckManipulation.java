@@ -36,11 +36,27 @@ public class DeckManipulation {
         return splitDecks;
     }
 
-    /*public static List<ArrayList>[] thirdDeck(ArrayList<Cards> deck){
-        List<Cards> oneThird = deck.subList(0, 17);     //17
-        List<Cards> twoThird = deck.subList(17, 34);    //17
-        List<Cards> threeThird = deck.subList(34, 52);  //18
+    public static List<ArrayList<Cards>> thirdDeck(ArrayList<Cards> deck){
+        List<ArrayList<Cards>> splitDecks = new ArrayList<>();
+        ArrayList<Cards> oneThird = new ArrayList<>();
+        ArrayList<Cards> twoThird = new ArrayList<>();
+        ArrayList<Cards> threeThird = new ArrayList<>();
 
-        return new List[] {oneThird, twoThird, threeThird};
-    }*/
+        for(int i = 0; i < 52; i++){
+            if( i < 17 ){
+                oneThird.add(deck.get(i));
+            }
+            if( i >= 17 && i < 35 ) {
+                twoThird.add(deck.get(i));
+            }
+            if( i >= 35 ) {
+                twoThird.add(deck.get(i));
+            }
+        }
+        splitDecks.add(oneThird);
+        splitDecks.add(twoThird);
+        splitDecks.add(threeThird);
+        return splitDecks;
+    }
+
 }
