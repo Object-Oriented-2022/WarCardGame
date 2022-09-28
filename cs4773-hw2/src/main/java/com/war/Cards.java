@@ -16,7 +16,7 @@ public class Cards {
         this.value = value;
         this.rank = rank;
     }
-    static ArrayList<Cards> createDeck(int seed){
+    public static ArrayList<Cards> createDeck(int seed){
         for(int i =1; i < 15; i++){
             switch (i){
                 case 1:

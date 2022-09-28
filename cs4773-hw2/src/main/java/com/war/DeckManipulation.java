@@ -18,11 +18,22 @@ public class DeckManipulation {
         }
     }
 
-    public static List[] halveDeck(ArrayList<Cards> deck){
-        ArrayList<Cards> firstHalf = (ArrayList<Cards>) deck.subList(0, 26);    //26
-        ArrayList<Cards> secondHalf = (ArrayList<Cards>) deck.subList(26, 52);  //26
+    public static List<ArrayList<Cards>> halveDeck(ArrayList<Cards> deck){
+        List<ArrayList<Cards>> splitDecks = new ArrayList<>();
+        ArrayList<Cards> firstHalf = new ArrayList<>();
+        ArrayList<Cards> secondHalf = new ArrayList<>();
 
-        return new List[] {firstHalf, secondHalf};
+        for(int i = 0; i < 52; i++){
+            if( i < 26 ){
+                firstHalf.add(deck.get(i));
+            }
+            if( i >= 26 ) {
+                secondHalf.add(deck.get(i));
+            }
+        }
+        splitDecks.add(firstHalf);
+        splitDecks.add(secondHalf);
+        return splitDecks;
     }
 
     /*public static List<ArrayList>[] thirdDeck(ArrayList<Cards> deck){

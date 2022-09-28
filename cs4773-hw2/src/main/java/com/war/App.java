@@ -2,6 +2,10 @@ package com.war;
 
 import java.io.*;
 import java.util.*;
+
+import static com.war.Cards.createDeck;
+import static com.war.WarVersions.warOne;
+
 public class App
 {
 
@@ -33,9 +37,11 @@ public class App
 
 		in.close();
 
+		ArrayList<Cards> deck = createDeck(seedNumber);
+
 		switch(gameVersion){
 			case 1:
-				System.out.println("v1 " + maxNumRounds + " " + seedNumber);
+				warOne(maxNumRounds, deck);
 				break;
 			case 2:
 				System.out.println("v2 " + maxNumRounds + " " + seedNumber);
