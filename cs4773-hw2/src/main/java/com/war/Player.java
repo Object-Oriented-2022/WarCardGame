@@ -28,6 +28,14 @@ class Player{
     public int getPoints(){
         return pointsWon.size();
     }
+
+    public void won(ArrayList<Cards> deckWon) {
+        deck.addAll(deckWon);
+    }
+
+    public void lost(ArrayList<Cards> deckLost) {
+        deck.removeAll(deckLost);
+    }
 }
 
 /*
