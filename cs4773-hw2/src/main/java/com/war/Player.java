@@ -8,6 +8,11 @@ public class Player {
 
     public static ArrayList<Cards> tmpDeck = new ArrayList<>();
 
+    public Player (ArrayList<Cards> list ){
+        deck = list;
+
+    }
+
 
     // create queue for each player for WAR
     public static Cards topCard(){
