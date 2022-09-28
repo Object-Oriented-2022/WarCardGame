@@ -19,17 +19,17 @@ public class DeckManipulation {
     }
 
     public static List[] halveDeck(ArrayList<Cards> deck){
-        List<Cards> firstHalf = deck.subList(0, 26);    //26
-        List<Cards> secondHalf = deck.subList(26, 52);  //26
+        ArrayList<Cards> firstHalf = (ArrayList<Cards>) deck.subList(0, 26);    //26
+        ArrayList<Cards> secondHalf = (ArrayList<Cards>) deck.subList(26, 52);  //26
 
         return new List[] {firstHalf, secondHalf};
     }
 
-    public static List[] thirdDeck(ArrayList<Cards> deck){
+    /*public static List<ArrayList>[] thirdDeck(ArrayList<Cards> deck){
         List<Cards> oneThird = deck.subList(0, 17);     //17
         List<Cards> twoThird = deck.subList(17, 34);    //17
         List<Cards> threeThird = deck.subList(34, 52);  //18
 
         return new List[] {oneThird, twoThird, threeThird};
-    }
+    }*/
 }
