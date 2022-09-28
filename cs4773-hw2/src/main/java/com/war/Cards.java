@@ -19,13 +19,11 @@ public class Cards {
                 case 1:
                     for (Value value:Value.values()
                     ){ cardDeck.add(new Cards(Suit.HEARTS, value, i++));
-
                     }
                     i = 1;
                 case 15:
                     for (Value value:Value.values()
                     ){ cardDeck.add(new Cards(Suit.DIAMONDS, value, i++));
-
                     }
                     i = 1;
                 case 30:
@@ -36,13 +34,13 @@ public class Cards {
                 case 45:
                     for (Value value:Value.values()
                     ){ cardDeck.add(new Cards(Suit.CLUBS, value, i++));
-
                     }
                     i = 1;
             }
         }
         return cardDeck;
     }
+
 
     @Override
     public String toString() {

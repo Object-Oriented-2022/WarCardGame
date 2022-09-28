@@ -2,6 +2,9 @@ package com.war;
 
 import java.io.*;
 import java.util.*;
+
+import static com.war.Cards.createDeck;
+
 public class App
 {
 
@@ -46,6 +49,7 @@ public class App
 			default:
 
 		}
+		createDeck();
 
 		//TEST PRINT STATEMENTS
 		/*
@@ -54,7 +58,6 @@ public class App
 		System.out.print("\nNumber of rounds: "+maxNumRounds);
 		System.out.print("\nSeed number: "+seedNumber);
 		*/
-		System.exit(0);
 	}
 
 }
