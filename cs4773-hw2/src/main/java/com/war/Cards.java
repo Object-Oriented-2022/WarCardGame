@@ -48,10 +48,7 @@ public class Cards {
 
     @Override
     public String toString() {
-        return "Cards{" +
-                "suit=" + suit +
-                ", value=" + value +
-                ", rank=" + rank +
-                "} \n";
+        return " plays " + value +
+                " of " + suit + "\n";
     }
 }
