@@ -117,8 +117,8 @@ public class WarVersions {
                     playerTwo.removeCard(twoscardFD);
                     Cards oneswarCard = playerOne.getTopCard();
                     Cards twoswarCard = playerTwo.getTopCard();
-                    playerOne.removeCard(onescardFD);
-                    playerTwo.removeCard(twoscardFD);
+                    playerOne.removeCard(oneswarCard);
+                    playerTwo.removeCard(twoswarCard);
 
                     printCardsPulled(oneswarCard, twoswarCard);
 
