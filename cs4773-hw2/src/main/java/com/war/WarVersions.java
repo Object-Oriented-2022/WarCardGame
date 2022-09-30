@@ -66,7 +66,7 @@ public class WarVersions {
     // Cards are not recycled. The game ends after the players use the cards that were initially dealt to them.
     // The winner is the player with the most cards in his/her points pile at the end of the game.
     // If the players do not have enough cards to complete a war, that round is a draw, and they keep their cards.
-    public static void warTwo (int maxRounds, ArrayList<Cards> deck) {
+    public static void warTwo (ArrayList<Cards> deck) {
         List<ArrayList<Cards>> playerDecks = halveDeck(deck);
         Player playerOne = new Player(playerDecks.get(0));
         Player playerTwo= new Player(playerDecks.get(1));

@@ -45,7 +45,7 @@ public class App
 				warOne(maxNumRounds, deck);
 				break;
 			case 2:
-				warTwo(maxNumRounds, deck);
+				warTwo(deck);
 				System.out.println("v2 " + maxNumRounds + " " + seedNumber);
 				break;
 			case 3:
