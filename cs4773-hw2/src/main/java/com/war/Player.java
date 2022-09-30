@@ -6,7 +6,7 @@ class Player{
     public ArrayList<Cards> pointsWon;
     public Player (ArrayList<Cards> deck){
         this.deck = deck;
-        pointsWon = new ArrayList<>();
+        pointsWon = new ArrayList<Cards>();
     }
 
     public Cards getTopCard(){
@@ -21,8 +21,8 @@ class Player{
     public void removeCard(Cards card){
         deck.remove(card);
     }
-    public void addToPointsDeck(Cards card){
-        pointsWon.add(card);
+    public void addToPointsDeck(ArrayList<Cards> deckWon){
+        pointsWon.addAll(deckWon);
     }
 
     public int getDeckSize(){

@@ -5,6 +5,7 @@ import java.util.*;
 
 import static com.war.Cards.createDeck;
 import static com.war.WarVersions.warOne;
+import static com.war.WarVersions.warTwo;
 
 public class App
 {
@@ -44,6 +45,7 @@ public class App
 				warOne(maxNumRounds, deck);
 				break;
 			case 2:
+				warTwo(maxNumRounds, deck);
 				System.out.println("v2 " + maxNumRounds + " " + seedNumber);
 				break;
 			case 3:
