@@ -19,6 +19,10 @@ class Player{
         return topCard;
     }
 
+    public void addCard(Cards card){
+        deck.add(card);
+    }
+
     public void removeCard(Cards card){
         deck.remove(card);
     }
