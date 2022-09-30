@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 import static com.war.Cards.createDeck;
+import static com.war.DeckManipulation.halveDeck;
 import static com.war.WarVersions.warOne;
 import static com.war.WarVersions.warTwo;
 
@@ -39,13 +40,15 @@ public class App
 		in.close();
 
 		ArrayList<Cards> deck = createDeck(seedNumber);
-
+		List<ArrayList<Cards>> playerDecks = halveDeck(deck);
+		Player playerOne = new Player(playerDecks.get(0));
+		Player playerTwo= new Player(playerDecks.get(1));
 		switch(gameVersion){
 			case 1:
-				warOne(maxNumRounds, deck);
+				warOne(maxNumRounds, playerOne, playerTwo);
 				break;
 			case 2:
-				warTwo(deck);
+				warTwo(playerOne, playerTwo);
 				System.out.println("v2 " + maxNumRounds + " " + seedNumber);
 				break;
 			case 3:

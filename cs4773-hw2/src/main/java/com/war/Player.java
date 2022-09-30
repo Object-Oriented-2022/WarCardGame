@@ -10,13 +10,14 @@ class Player{
     }
 
     public Cards getTopCard(){
-
         return this.deck.get(0);
     }
 
-    /*public void addCard(Cards card){
-        deck.add(card);
-    }*/
+    public Cards flipCards(){
+        Cards topCard = getTopCard();
+        removeCard(topCard);
+        return topCard;
+    }
 
     public void removeCard(Cards card){
         deck.remove(card);
