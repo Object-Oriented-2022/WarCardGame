@@ -30,28 +30,31 @@ public class WarVersions {
                 if (playerOne.getDeckSize() > 2 && playerTwo.getDeckSize() > 2) {
                     //players keep their cards if draw occurs, add to points deck to be won
                     System.out.println("Players have enough cards for war");
+                    war(deckWon, playerOne, playerTwo);
 
-                    Cards onesCardFD = playerOne.flipCards();
-                    Cards twosCardFD = playerTwo.flipCards();
-                    Cards onesWarCard = playerOne.flipCards();
-                    Cards twosWarCard = playerTwo.flipCards();
+                    /*Most descriptions of War are not clear about what happens if a player runs out of cards
+                    during a war. There are at least two possibilities:
+                    If you don't have enough cards to complete the war, you lose. If neither player has enough cards,
+                    the one who runs out first loses. If both run out simultaneously, it's a draw. Example: Players A
+                    and B both play sevens, so there is a war. Each player plays a card face down, but this is player
+                    B's last card. Player A wins, since player B does not have enough cards to fight the war.
 
-                    deckWon.addAll(Arrays.asList(onesCardFD, twosCardFD, onesWarCard, twosWarCard));
-
-                    printCardsPulled(onesWarCard, twosWarCard);
-
-                    if (onesWarCard.rank < twosWarCard.rank) {              //player 2 won
-                        System.out.println("Player 2 wins the round");
-                        //player two wins add all 6 cards to points pile
-                        playerTwo.won(deckWon);
-                    } else if (onesWarCard.rank > twosWarCard.rank) {         //player 1 won
-                        System.out.println("Player 1 wins the round");
-                        playerOne.won(deckWon);
-                    } else { //equal again
-
+                    If you run out of cards during a war, your last card is turned face up and is used for all battles
+                    in that war. If this happens to both players in a war and their last cards are equal, the game is a
+                    draw. Example: Players A and B both play sevens, so there is a war. Player A plays a card face
+                    down, but player B has only one card, so it must be played face up. It is a queen. Player A plays
+                    a card face up and it is also a queen, so the war must continue. Player B's queen stays (B's last
+                    card) while player A plays a card face down and one face up, which is a nine. Player B wins the
+                    war and takes all these seven cards (the five cards that A played and the two cards that B
+                    played) and the game continues normally.*/
+                } else {    //TODO: ADD LOSE CASES SEE ABOVE
+                    if(playerOne.getDeckSize() < 2){
+                        System.out.println("Player 1 does not have enough cards to play WAR!!");
+                        System.out.println("Player 2 has won all the cards!");
+                    } else {
+                        System.out.println("Player 2 does not have enough cards to play WAR!!");
+                        System.out.println("Player 1 has won all the cards!");
                     }
-                } else {
-                    System.out.println("Draw, Player does not have enough cards to play WAR!!");
                 }
             }
             currentRound++;
@@ -60,6 +63,31 @@ public class WarVersions {
         System.out.println(playerTwo.deck.toString());
     }
 
+    private static void war(ArrayList<Cards> deckWon, Player playerOne, Player playerTwo) {
+        Cards onesCardFD = playerOne.flipCards();
+        Cards twosCardFD = playerTwo.flipCards();
+        Cards onesWarCard = playerOne.flipCards();
+        Cards twosWarCard = playerTwo.flipCards();
+
+        deckWon.addAll(Arrays.asList(onesCardFD, twosCardFD, onesWarCard, twosWarCard));
+
+        printCardsPulled(onesWarCard, twosWarCard);
+
+        if (onesWarCard.rank < twosWarCard.rank) {              //player 2 won
+            System.out.println("Player 2 wins the round");
+            //player two wins add all 6 cards to points pile
+            //playerTwo.won(deckWon);
+            playerTwo.addToPointsDeck(deckWon);
+            printCurrentScore(playerOne.getPointsSize(), playerTwo.getPointsSize());
+        } else if (onesWarCard.rank > twosWarCard.rank) {         //player 1 won
+            System.out.println("Player 1 wins the round");
+            //playerOne.won(deckWon);
+            playerOne.addToPointsDeck(deckWon);
+            printCurrentScore(playerOne.getPointsSize(), playerTwo.getPointsSize());
+        } else { //equal again
+            war(deckWon, playerOne, playerTwo);
+        }
+    }
 
 
     private static void printCardsPulled(Cards onesCard, Cards twosCard) {
@@ -106,6 +134,8 @@ public class WarVersions {
                 if (playerOne.getDeckSize() > 2 && playerTwo.getDeckSize() > 2) {
                     //players keep their cards if draw occurs, add to points pile???
                     System.out.println("Players have enough cards for war");
+                    war(deckWon, playerOne, playerTwo);
+                    /* OLD
 
                     Cards onesCardFD = playerOne.flipCards();
                     Cards twosCardFD = playerTwo.flipCards();
@@ -122,7 +152,7 @@ public class WarVersions {
                     Cards twoswarCard = playerTwo.getTopCard();
                     playerOne.removeCard(oneswarCard);
                     playerTwo.removeCard(twoswarCard);
-                     */
+
                     printCardsPulled(onesWarCard, twosWarCard);
                     //hello
                     //hi
@@ -148,7 +178,7 @@ public class WarVersions {
                         printCurrentScore(playerOne.getPointsSize(), playerTwo.getPointsSize());
                     } else { //cards are equal again
 
-                    }
+                    }*/
                 } else {
                     System.out.println("Draw, Player does not have enough cards to play WAR!!");
                 }
