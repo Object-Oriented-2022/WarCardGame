@@ -3,6 +3,7 @@ package com.war;
 import com.Player.Player;
 import com.card.Cards;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +19,7 @@ public class WarVersions {
         while(currentRound < maxRounds && playerOne.getDeckSize() > 0 && playerTwo.getDeckSize() > 0){
             Cards onesCard = playerOne.flipCards();
             Cards twosCard = playerTwo.flipCards();
-            printCardsPulled(onesCard, twosCard);
+            //printCardsPulled(onesCard, twosCard);
 
             ArrayList<Cards> deckWon = new ArrayList<>(Arrays.asList(onesCard, twosCard));
             if(onesCard.rank < twosCard.rank){              //player 2 won
@@ -168,9 +169,11 @@ played) and the game continues normally.*/
         Cards onesWarCard = playerOne.flipCards();
         Cards twosWarCard = playerTwo.flipCards();
 
+        ArrayList<Cards> cards = new ArrayList<>(Arrays.asList(onesWarCard, twosWarCard));
+
         deckWon.addAll(Arrays.asList(onesCardFD, twosCardFD, onesWarCard, twosWarCard));
 
-        printCardsPulled(onesWarCard, twosWarCard);
+        printCardsPulled(cards);
 
         if (onesWarCard.rank < twosWarCard.rank) {              //player 2 won
             //player two wins add all 6 cards to points pile
@@ -184,10 +187,10 @@ played) and the game continues normally.*/
         }
     }
 
-    private static void printCardsPulled(Cards onesCard, Cards twosCard) {
-        System.out.println("Player 1" + onesCard.toString());
-        System.out.println("Player 2" + twosCard.toString());
-
+    private static void printCardsPulled(ArrayList<Cards> cards) {
+        for (int i =0; i < cards.size(); i++) {
+            System.out.println("Player" + i + " " + cards.get(i).toString());
+        }
     }
 
     // A different version for two players. Cards that are won are placed in a separate points pile.
@@ -198,7 +201,8 @@ played) and the game continues normally.*/
         while(playerOne.getDeckSize() > 0 && playerTwo.getDeckSize() > 0){
             Cards onesCard = playerOne.flipCards();
             Cards twosCard = playerTwo.flipCards();
-            printCardsPulled(onesCard, twosCard);
+            //ArrayList<Cards> cards = new ArrayList<>(Arrays.asList());
+            //printCardsPulled(cards);
 
             ArrayList<Cards> deckWon = new ArrayList<>(Arrays.asList(onesCard, twosCard));
             if(onesCard.rank < twosCard.rank){              //player 2 won
@@ -221,6 +225,49 @@ played) and the game continues normally.*/
 
         System.out.println(playerOne.deck.toString());
         System.out.println(playerTwo.deck.toString());
+
+    }
+    //3) The three-player war game, but with one change. Cards that are won are placed in a separate points pile.
+    // The winner is the player with most cards his/her in points pile at end of game.
+    // If players do not have enough cards to complete a war, use the first listed possibility for ending the game.
+    //war(deckWon, new ArrayList<>(Arrays.asList(playerOne, playerTwo)));
+
+    public static void warThree (ArrayList<Player> players) {
+        while(players.get(0).getDeckSize() > 0 && players.get(1).getDeckSize() > 0 && players.get(2).getDeckSize() > 0){
+            Cards onesCard = players.get(0).flipCards();
+            Cards twosCard = players.get(1).flipCards();
+            Cards threesCard = players.get(2).flipCards();
+            ArrayList<Cards> cards = new ArrayList<>(Arrays.asList(onesCard, twosCard, threesCard));
+
+            printCardsPulled(cards);
+
+            ArrayList<Cards> deckWon = new ArrayList<>(Arrays.asList(onesCard, twosCard, threesCard));
+            if(onesCard.rank < twosCard.rank && threesCard.rank < twosCard.rank){              //player 2 won
+                players.get(1).won(deckWon);
+                players.get(0).lost();
+                players.get(2).lost();
+            } else if(onesCard.rank > twosCard.rank && onesCard.rank > threesCard.rank){         //player 1 won
+                players.get(0).won(deckWon);
+                players.get(1).lost();
+                players.get(2).lost();
+            } else if (onesCard.rank < threesCard.rank && threesCard.rank > twosCard.rank){              //player 2 won
+                players.get(2).won(deckWon);
+                players.get(0).lost();
+                players.get(1).lost();
+            } else {
+                System.out.println(onesCard.rank + " is equal to " + twosCard.rank + " is equal to " + threesCard.rank);
+                //war(deckWon, new ArrayList<>(Arrays.asList(players.get(0), players.get(1), players.get(2))));
+            }
+            if(endCase != null)
+                break;
+        }
+
+        List<Integer> deckSizes = new ArrayList<>(Arrays.asList(players.get(0).getPoints(), players.get(1).getPoints(), players.get(2).getDeckSize()));
+        endGame(deckSizes);
+
+        System.out.println(players.get(0).deck.toString());
+        System.out.println(players.get(1).deck.toString());
+        System.out.println(players.get(2).deck.toString());
 
     }
 
