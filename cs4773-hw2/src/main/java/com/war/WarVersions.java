@@ -29,7 +29,7 @@ public class WarVersions {
                 playerOne.won(deckWon);
             }
             else {
-                war(deckWon, playerOne, playerTwo);
+                war(deckWon, new ArrayList<>(Arrays.asList(playerOne, playerTwo)));
             }
             if(endCase != null)
                 break;
@@ -119,27 +119,51 @@ card) while player A plays a card face down and one face up, which is a nine. Pl
 war and takes all these seven cards (the five cards that A played and the two cards that B
 played) and the game continues normally.*/
     //check decks before proceeding with iterations
-    private static void war(ArrayList<Cards> deckWon, Player playerOne, Player playerTwo) {
+    private static void war(ArrayList<Cards> deckWon, ArrayList<Player> players) {
         System.out.println("*** WAR! ***");
-        if(checkDecks(playerOne) && checkDecks(playerTwo)){    //both are fine
-            System.out.println("Players have enough cards for war");
-            warIteration(deckWon, playerOne, playerTwo);
-        }
-        else if(!checkDecks(playerOne)){             //player one < 2
-            System.out.println("Player 1 does not have enough cards to play war!");
-            giveCards(deckWon, playerTwo, playerOne);
-            endCase = EndCases.RAN_OUT;
-        }
-        else if(!checkDecks(playerTwo)){             //player two < 2
-            System.out.println("Player 2 does not have enough cards to play war!");
-            giveCards(deckWon, playerTwo, playerOne);
-            endCase = EndCases.RAN_OUT;
-        }
-        else if(!checkDecks(playerOne) && !checkDecks(playerTwo)){      //draw scenario, both 1 card
-            giveCardsBack(deckWon, playerOne, playerTwo);
-            endCase = EndCases.DRAW_CARDS;
+        for(int i = 0; i < players.size(); i++){
+            warCheck(players);
+            warIteration(deckWon, players);
+            //nested check loop maybe
+            /* if(checkDecks(playerOne) && checkDecks(playerTwo)){    //both are fine
+                System.out.println("Players have enough cards for war");
+                warIteration(deckWon, playerOne, playerTwo);
+            }
+            else if(!checkDecks(playerOne)){             //player one < 2
+                System.out.println("Player 1 does not have enough cards to play war!");
+                giveCards(deckWon, playerTwo, playerOne);
+                endCase = EndCases.RAN_OUT;
+            }
+            else if(!checkDecks(playerTwo)){             //player two < 2
+                System.out.println("Player 2 does not have enough cards to play war!");
+                giveCards(deckWon, playerTwo, playerOne);
+                endCase = EndCases.RAN_OUT;
+            }
+            else if(!checkDecks(playerOne) && !checkDecks(playerTwo)){      //draw scenario, both 1 card
+                giveCardsBack(deckWon, playerOne, playerTwo);
+                endCase = EndCases.DRAW_CARDS;
+            }*/
         }
     }
+
+
+    private static void warCheck(ArrayList<Player> players) {
+        boolean check = true, draw = false;
+        for (Player player : players) {
+            if (!checkDecks(player)) {
+                System.out.println("Player " + player.playerNum + " does not have enough cards to play war!");
+                if (!check)
+                    draw = true;
+                else
+                    check = false;
+            }
+        }
+        if(draw)
+            endCase = EndCases.DRAW_CARDS;
+        else if (!draw && !check)
+            endCase = EndCases.RAN_OUT;
+    }
+
 
     private static void giveCards(ArrayList<Cards> deckWon, Player winner, Player loser) {
         deckWon.addAll(winner.deck);
@@ -163,18 +187,16 @@ played) and the game continues normally.*/
     }
 
     //begin war iterations
-    private static void warIteration(ArrayList<Cards> deckWon, Player playerOne, Player playerTwo) {
-        Cards onesCardFD = playerOne.flipCards();
-        Cards twosCardFD = playerTwo.flipCards();
-        Cards onesWarCard = playerOne.flipCards();
-        Cards twosWarCard = playerTwo.flipCards();
+    private static void warIteration(ArrayList<Cards> deckWon, ArrayList<Player> players) {
+        ArrayList<Cards> faceDownCards = pullCards(players);
+        ArrayList<Cards> warCards = pullCards(players);
 
-        ArrayList<Cards> cards = new ArrayList<>(Arrays.asList(onesWarCard, twosWarCard));
+        deckWon.addAll(faceDownCards);
+        deckWon.addAll(warCards);
+        //TODO PRINT CARDS PULLED INTO ARRAYLIST
+        printCardsPulled(warCards);
 
-        deckWon.addAll(Arrays.asList(onesCardFD, twosCardFD, onesWarCard, twosWarCard));
-
-        printCardsPulled(cards);
-
+        //determineCard
         if (onesWarCard.rank < twosWarCard.rank) {              //player 2 won
             //player two wins add all 6 cards to points pile
             playerTwo.won(deckWon);
@@ -185,6 +207,15 @@ played) and the game continues normally.*/
         } else { //equal again, start war over
             war(deckWon, playerOne, playerTwo);
         }
+    }
+
+    private static ArrayList<Cards> pullCards(ArrayList<Player> players) {
+        ArrayList<Cards> pulledCards = new ArrayList<>();
+        for (Player player : players) {
+            Cards card = player.flipCards();
+            pulledCards.add(card);
+        }
+        return pulledCards;
     }
 
     private static void printCardsPulled(ArrayList<Cards> cards) {
