@@ -1,4 +1,4 @@
-package com.war;
+package com.card;
 
 public enum Value {
         TWO,
@@ -13,4 +13,4 @@ public enum Value {
         JACK,
         QUEEN,
         KING,
-        ACE;}
+        ACE}

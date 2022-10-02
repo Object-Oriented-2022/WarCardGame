@@ -1,4 +1,4 @@
-package com.war;
+package com.card;
 
 import java.util.ArrayList;
 
@@ -48,6 +48,7 @@ public class Cards {
     @Override
     public String toString() {
         return " plays " + value +
-                " of " + suit + "\n";
+                " of " + suit;
     }
+
 }

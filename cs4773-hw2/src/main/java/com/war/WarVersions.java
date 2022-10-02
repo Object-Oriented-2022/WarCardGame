@@ -1,15 +1,21 @@
 package com.war;
 
+import com.PlayerBehavior.Player;
+import com.card.Cards;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class WarVersions {
 
+    public static EndCases endCase = null;
+
     //TODO: MOVE CARDS INITIALIZATION HERE MAYBE
     public static void warOne (int maxRounds, Player playerOne, Player playerTwo) {
         int currentRound = 0;
-        //TODO: HANDLE WHEN ONE PERSON HAS 0 AND OTHER HAS MORE (WIN CASES)
+        //TODO FIGURE OUT HOW TO BREAK IF CASE REACHED
         while(currentRound < maxRounds && playerOne.getDeckSize() > 0 && playerTwo.getDeckSize() > 0){
             Cards onesCard = playerOne.flipCards();
             Cards twosCard = playerTwo.flipCards();
@@ -17,25 +23,84 @@ public class WarVersions {
 
             ArrayList<Cards> deckWon = new ArrayList<>(Arrays.asList(onesCard, twosCard));
             if(onesCard.rank < twosCard.rank){              //player 2 won
-                System.out.println("Player 2 wins the round");
                 playerTwo.won(deckWon);
             }
             else if(onesCard.rank > twosCard.rank){         //player 1 won
-                System.out.println("Player 1 wins the round");
                 playerOne.won(deckWon);
             }
-            else {//TODO: WAR IF EQUAL
-                System.out.println(onesCard.rank + " is equal to " + twosCard.rank);
-                System.out.println("*** WAR! ***");
-
-                //begin war
+            else {
                 war(deckWon, playerOne, playerTwo);
-
             }
+            if(endCase != null)
+                break;
             currentRound++;
-        } //TODO WHEN ONE PLAYER HAS 0 CARDS
+        }
+        if(currentRound == maxRounds){
+            endCase = EndCases.ROUNDS_END;
+        }
+        List<Integer> deckSizes = new ArrayList<>(Arrays.asList(playerOne.getPoints(), playerTwo.getPoints()));
         System.out.println(playerOne.deck.toString());
         System.out.println(playerTwo.deck.toString());
+        endGame(deckSizes);
+
+    }
+
+    //TODO: adjust for war v3
+    private static void endGame(List<Integer> deckSizes) {
+        int winner;
+        switch(endCase){
+            case ONE_WINNER: //one player has won all the cards
+            case RAN_OUT:
+                //winner = findWinner(deckSizes);
+                findWinner(deckSizes);   //TODO DOES NOT WORK NEED TO MAKE DYNAMIC ON PLAYER AND ON # WINNERS
+                //System.out.println("Player " + winner + " has won all of the cards");
+                break;
+            case ROUNDS_END:
+                System.out.println("Max number of rounds played");
+                findWinner(deckSizes); //TODO DOES NOT WORK NEED TO MAKE DYNAMIC ON PLAYER AND ON # WINNERS
+                break;
+            case DRAW_CARDS:
+                System.out.println("Draw: Players last cards were equal cards");
+                break;
+            default:
+                System.out.println("Some error occurred.");
+        }
+    }
+
+    private static void findWinner(List<Integer> deckSizes) {
+         /*int winner = 0, biggestDeck = 0;
+        for (int i = 0; i < deckSizes.size(); i++) {
+            int player = i+1;
+            if (biggestDeck < deckSizes.get(i)) {
+                biggestDeck = deckSizes.get(i);
+                winner = player;
+            }
+            else if(biggestDeck == deckSizes.get(i)){
+                winner.add(player);
+            }
+        }
+       ArrayList<Integer> winners = new ArrayList<>();
+        ArrayList<Integer> scores = new ArrayList<>();
+        int biggestDeck = 0;
+        for (int i = 0; i < deckSizes.size(); i++) {
+            int player = i+1;
+            if (biggestDeck < deckSizes.get(i)) {
+                biggestDeck = deckSizes.get(i);
+                winners.add(player);
+            }
+            else if(biggestDeck == deckSizes.get(i)){
+                winners.add(player);
+            }
+        }
+        if(winners.size() > 1){
+            System.out.print("Tie: Players ");
+            winners.forEach((n) -> { System.out.print(n + ", "); });
+            System.out.println(" have deck sizes of ");
+        }
+        else{
+            System.out.println("Player " + winners.get(0) + " has won the most cards");
+        }
+        return winner;*/
     }
 
     /*Most descriptions of War are not clear about what happens if a player runs out of cards
@@ -53,27 +118,35 @@ a card face up and it is also a queen, so the war must continue. Player B's quee
 card) while player A plays a card face down and one face up, which is a nine. Player B wins the
 war and takes all these seven cards (the five cards that A played and the two cards that B
 played) and the game continues normally.*/
-    //TODO MAKE CHECK IF 0 IS REACHED DURING WAR
     //check decks before proceeding with iterations
     private static void war(ArrayList<Cards> deckWon, Player playerOne, Player playerTwo) {
+        System.out.println("*** WAR! ***");
         if(checkDecks(playerOne) && checkDecks(playerTwo)){    //both are fine
             System.out.println("Players have enough cards for war");
             warIteration(deckWon, playerOne, playerTwo);
         }
         else if(!checkDecks(playerOne)){             //player one < 2
             System.out.println("Player 1 does not have enough cards to play war!");
-            System.out.println("Player 2 wins!");
-            giveCards(deckWon, playerTwo, playerOne);        //give player 2 player 1's remaining card
+            giveCards(deckWon, playerTwo, playerOne);
+            endCase = EndCases.RAN_OUT;
         }
         else if(!checkDecks(playerTwo)){             //player two < 2
             System.out.println("Player 2 does not have enough cards to play war!");
-            System.out.println("Player 1 wins!");
-            giveCards(deckWon, playerOne, playerTwo);        //give player 1 player 2's remaining card
+            giveCards(deckWon, playerTwo, playerOne);
+            endCase = EndCases.RAN_OUT;
         }
         else if(!checkDecks(playerOne) && !checkDecks(playerTwo)){      //draw scenario, both 1 card
             giveCardsBack(deckWon, playerOne, playerTwo);
-            endGame(3); //draw in war
+            endCase = EndCases.DRAW_CARDS;
         }
+    }
+
+    private static void giveCards(ArrayList<Cards> deckWon, Player winner, Player loser) {
+        deckWon.addAll(winner.deck);
+        deckWon.addAll(loser.deck);
+        winner.deck.clear();
+        loser.deck.clear();
+        winner.won(deckWon);
     }
 
     private static void giveCardsBack(ArrayList<Cards> deckWon, Player playerOne, Player playerTwo) {
@@ -82,32 +155,6 @@ played) and the game continues normally.*/
             playerTwo.addCard(deckWon.get(i+1));
             i++;    //increment past second card
         }
-    }
-
-    //TODO: adjust for war v3
-    private static void endGame(int version) {
-        switch(version){
-            case 1: //one player has won all the cards
-                System.out.println("player y has ran out of cards");
-                System.out.println("player X has won all of the cards");// TODO: ADJUST FOR 3 PLAYERS
-                break;
-            case 2:
-                System.out.println("max num rounds played, most cards is winner");
-                break;
-            case 3:
-                System.out.println("Draw: players last cards were equal cards");
-                break;
-            case 4: //version 2 scenario
-                System.out.println("Draw: each player has same amount of points");
-                break;
-        }
-    }
-
-    //deck won goes to winner
-    //loser's remaining card goes to winner
-    private static void giveCards(ArrayList<Cards> deckWon, Player winner, Player loser) {
-        winner.won(deckWon);
-        winner.won(loser.deck);
     }
 
     //check deck function
@@ -127,21 +174,16 @@ played) and the game continues normally.*/
         printCardsPulled(onesWarCard, twosWarCard);
 
         if (onesWarCard.rank < twosWarCard.rank) {              //player 2 won
-            System.out.println("Player 2 wins the round");
             //player two wins add all 6 cards to points pile
             playerTwo.won(deckWon);
-            //playerTwo.addToPointsDeck(deckWon);
-            //printCurrentScore(playerOne.getPointsSize(), playerTwo.getPointsSize());
+            playerOne.lost();
         } else if (onesWarCard.rank > twosWarCard.rank) {         //player 1 won
-            System.out.println("Player 1 wins the round");
             playerOne.won(deckWon);
-            //playerOne.addToPointsDeck(deckWon);
-            //printCurrentScore(playerOne.getPointsSize(), playerTwo.getPointsSize());
+            playerTwo.lost();
         } else { //equal again, start war over
             war(deckWon, playerOne, playerTwo);
         }
     }
-
 
     private static void printCardsPulled(Cards onesCard, Cards twosCard) {
         System.out.println("Player 1" + onesCard.toString());
@@ -161,93 +203,26 @@ played) and the game continues normally.*/
 
             ArrayList<Cards> deckWon = new ArrayList<>(Arrays.asList(onesCard, twosCard));
             if(onesCard.rank < twosCard.rank){              //player 2 won
-                //System.out.println(onesCard.rank + " is less than " + twosCard.rank);
-                System.out.println("Player 2 wins the round");
-                //playerTwo.won(deckWon);
-                playerTwo.addToPointsDeck(deckWon);
-                //playerOne.removeCard(onesCard);
-                //TODO: create helper function for printing??  --DONE
-                printCurrentScore(playerOne.getPointsSize(), playerTwo.getPointsSize());
-
+                playerTwo.won(deckWon);
+                playerOne.lost();
             }
             else if(onesCard.rank > twosCard.rank){         //player 1 won
-                //System.out.println(onesCard.rank + " is greater than " + twosCard.rank);
-                System.out.println("Player 1 wins the round");
-                //playerOne.won(deckWon);
-                playerOne.addToPointsDeck(deckWon);
-                //playerTwo.removeCard(twosCard);
-                //TODO: create helper function for printing??  --DONE
-                printCurrentScore(playerOne.getPointsSize(), playerTwo.getPointsSize());
+                playerOne.won(deckWon);
+                playerTwo.lost();
             }
-            else {//TODO: WAR IF EQUAL
-                //TODO: ASK ABOUT WAR VERSION 2????
+            else {
                 System.out.println(onesCard.rank + " is equal to " + twosCard.rank);
-                System.out.println("*** WAR! ***");
-                // checks to make sure each player has enough cards to play war
-                if (playerOne.getDeckSize() > 2 && playerTwo.getDeckSize() > 2) {
-                    //players keep their cards if draw occurs, add to points pile???
-                    System.out.println("Players have enough cards for war");
-                    war(deckWon, playerOne, playerTwo);
-                    /* OLD
-
-                    Cards onesCardFD = playerOne.flipCards();
-                    Cards twosCardFD = playerTwo.flipCards();
-                    Cards onesWarCard = playerOne.flipCards();
-                    Cards twosWarCard = playerTwo.flipCards();
-
-                    deckWon.addAll(Arrays.asList(onesCardFD, twosCardFD, onesWarCard, twosWarCard));
-                    /* OLD:
-                    Cards onescardFD = playerOne.getTopCard();
-                    Cards twoscardFD = playerTwo.getTopCard();
-                    playerOne.removeCard(onescardFD);
-                    playerTwo.removeCard(twoscardFD);
-                    Cards oneswarCard = playerOne.getTopCard();
-                    Cards twoswarCard = playerTwo.getTopCard();
-                    playerOne.removeCard(oneswarCard);
-                    playerTwo.removeCard(twoswarCard);
-
-                    printCardsPulled(onesWarCard, twosWarCard);
-                    //hello
-                    //hi
-                    //ArrayList<Cards> warDeckFD = new ArrayList<>(Arrays.asList(onesCardFD, twosCardFD));
-                    //ArrayList<Cards> warDeckWon = new ArrayList<>(Arrays.asList(onesWarCard, twosWarCard));
-
-                    if (onesWarCard.rank < twosWarCard.rank) {              //player 2 won
-                        //System.out.println(onesCard.rank + " is less than " + twosCard.rank);
-                        System.out.println("Player 2 wins the round");
-                        //player two wins add all 6 cards to points pile
-                        playerTwo.addToPointsDeck(deckWon);
-                        //playerTwo.addToPointsDeck(warDeckFD);
-                        //playerTwo.addToPointsDeck(warDeckWon);
-                        //TODO: create helper function for printing?? --DONE
-                        printCurrentScore(playerOne.getPointsSize(), playerTwo.getPointsSize());
-                    } else if (onesWarCard.rank > twosWarCard.rank) {         //player 1 won
-                        //System.out.println(onesCard.rank + " is greater than " + twosCard.rank);
-                        System.out.println("Player 1 wins the round");
-                        playerOne.addToPointsDeck(deckWon);
-                        //playerOne.addToPointsDeck(warDeckFD);
-                        //playerOne.addToPointsDeck(warDeckWon);
-                        //TODO: create helper function for printing?? --DONE
-                        printCurrentScore(playerOne.getPointsSize(), playerTwo.getPointsSize());
-                    } else { //cards are equal again
-
-                    }*/
-                } else {
-                    System.out.println("Draw, Player does not have enough cards to play WAR!!");
-                }
+                war(deckWon, playerOne, playerTwo);
             }
+            if(endCase != null)
+                break;
         }
+        List<Integer> deckSizes = new ArrayList<>(Arrays.asList(playerOne.getPoints(), playerTwo.getPoints()));
+        endGame(deckSizes);
 
         System.out.println(playerOne.deck.toString());
         System.out.println(playerTwo.deck.toString());
 
     }
-
-    private static void printCurrentScore(int playerOne, int playerTwo) {
-        System.out.println("Player 1 has a score of " + playerOne);
-        System.out.println("Player 2 has a score of " + playerTwo +
-                "\n-----------------------------");
-    }
-
 
 }

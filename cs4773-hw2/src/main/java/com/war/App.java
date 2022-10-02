@@ -1,9 +1,14 @@
 package com.war;
 
+import com.PlayerBehavior.BehaviorOne;
+import com.PlayerBehavior.BehaviorTwo;
+import com.PlayerBehavior.Player;
+import com.card.Cards;
+
 import java.io.*;
 import java.util.*;
 
-import static com.war.Cards.createDeck;
+import static com.card.Cards.createDeck;
 import static com.war.DeckManipulation.halveDeck;
 import static com.war.WarVersions.warOne;
 import static com.war.WarVersions.warTwo;
@@ -19,9 +24,9 @@ public class App
     
     public static void main( String[] args ) throws IOException {
 		Scanner in = new Scanner(System.in);
-		int gameVersion = 0;
-		int maxNumRounds = 0;
-		int seedNumber = 0;
+		int gameVersion;
+		int maxNumRounds;
+		int seedNumber;
 
 		System.out.print("Enter game version 1, 2, or 3: ");
 		gameVersion = in.nextInt();
@@ -41,30 +46,29 @@ public class App
 
 		ArrayList<Cards> deck = createDeck(seedNumber);
 		List<ArrayList<Cards>> playerDecks = halveDeck(deck);
-		Player playerOne = new Player(playerDecks.get(0));
-		Player playerTwo= new Player(playerDecks.get(1));
+		Player playerOne;
+		Player playerTwo;
 		switch(gameVersion){
 			case 1:
+				playerOne = new BehaviorOne(playerDecks.get(0), 1);
+				playerTwo= new BehaviorOne(playerDecks.get(1), 2);
 				warOne(maxNumRounds, playerOne, playerTwo);
 				break;
 			case 2:
+				playerOne = new BehaviorTwo(playerDecks.get(0), 1);
+				playerTwo= new BehaviorTwo(playerDecks.get(1), 2);
 				warTwo(playerOne, playerTwo);
 				System.out.println("v2 " + maxNumRounds + " " + seedNumber);
 				break;
 			case 3:
+				/*playerOne = new BehaviorTwo(playerDecks.get(0), 1);
+				playerTwo= new BehaviorTwo(playerDecks.get(1), 2);
+				Player playerThree = new BehaviorTwo(playerDecks.get(3), 3);*/
 				System.out.println("v3 " + maxNumRounds + " " + seedNumber);
 				break;
 			default:
 
 		}
-
-		//TEST PRINT STATEMENTS
-		/*
-		System.out.println(Cards.createDeck());
-		System.out.print("Game Version chosen: "+gameVersion);
-		System.out.print("\nNumber of rounds: "+maxNumRounds);
-		System.out.print("\nSeed number: "+seedNumber);
-		*/
 		System.exit(0);
 	}
 

@@ -1,4 +1,4 @@
-package com.war;
+package com.card;
 
 public enum Suit {
     CLUBS,

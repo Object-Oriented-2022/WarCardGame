@@ -1,0 +1,24 @@
+package com.PlayerBehavior;
+
+import com.card.Cards;
+
+import java.util.ArrayList;
+
+public interface WarBehavior {
+
+    Cards getTopCard();
+
+    Cards flipCards();
+
+    void addCard(Cards card);
+
+    void removeCard(Cards card);
+
+    void won(ArrayList<Cards> deckWon);
+    void lost();
+
+    int getDeckSize();
+
+    int getPoints();
+
+}
