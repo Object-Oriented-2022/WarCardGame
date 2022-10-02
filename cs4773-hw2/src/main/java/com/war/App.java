@@ -1,8 +1,8 @@
 package com.war;
 
-import com.PlayerBehavior.BehaviorOne;
-import com.PlayerBehavior.BehaviorTwo;
-import com.PlayerBehavior.Player;
+import com.Player.BehaviorOne;
+import com.Player.BehaviorTwo;
+import com.Player.Player;
 import com.card.Cards;
 
 import java.io.*;

@@ -1,9 +1,9 @@
-package com.PlayerBehavior;
+package com.Player;
 import com.card.Cards;
 
 import java.util.ArrayList;
 
-public abstract class Player implements WarBehavior {
+public abstract class Player implements PlayerBehavior {
     public int playerNum;
     public ArrayList<Cards> deck;
     //public ArrayList<Cards> pointsWon;

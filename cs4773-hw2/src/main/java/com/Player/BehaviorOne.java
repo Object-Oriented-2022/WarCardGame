@@ -1,4 +1,4 @@
-package com.PlayerBehavior;
+package com.Player;
 
 import com.card.Cards;
 

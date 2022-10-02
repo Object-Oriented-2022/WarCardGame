@@ -1,10 +1,10 @@
-package com.PlayerBehavior;
+package com.Player;
 
 import com.card.Cards;
 
 import java.util.ArrayList;
 
-public interface WarBehavior {
+public interface PlayerBehavior {
 
     Cards getTopCard();
 

@@ -1,6 +1,6 @@
 package com.war;
 
-import com.PlayerBehavior.Player;
+import com.Player.Player;
 import com.card.Cards;
 
 import java.util.ArrayList;
@@ -15,7 +15,6 @@ public class WarVersions {
     //TODO: MOVE CARDS INITIALIZATION HERE MAYBE
     public static void warOne (int maxRounds, Player playerOne, Player playerTwo) {
         int currentRound = 0;
-        //TODO FIGURE OUT HOW TO BREAK IF CASE REACHED
         while(currentRound < maxRounds && playerOne.getDeckSize() > 0 && playerTwo.getDeckSize() > 0){
             Cards onesCard = playerOne.flipCards();
             Cards twosCard = playerTwo.flipCards();
