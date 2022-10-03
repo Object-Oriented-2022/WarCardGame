@@ -21,7 +21,12 @@ public class StartGame{
     static Player playerOne;
     static Player playerTwo;
     static List<ArrayList<Cards>> playerDecks;
-    
+
+    /**
+     * StartGame opens the command line for a user to enter data that will
+     * then start the War game.
+     */
+
     public static void startGame(){
         Scanner in = new Scanner(System.in);
         System.out.print("Enter game version 1, 2, or 3: ");
@@ -43,6 +48,11 @@ public class StartGame{
             playerDecks = halveDeck(deck);
         }
     }
+
+    /**
+     * gVersion is a function that selects which version of war to play
+     * based on the user input from the command line
+     */
 
     public static void gVersion() {
         switch (gameVersion) {
