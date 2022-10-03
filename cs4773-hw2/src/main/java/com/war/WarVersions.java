@@ -201,8 +201,11 @@ played) and the game continues normally.*/
     private static void war() {
         System.out.println("*** WAR! ***");
         //for(int i = 0; i < players.size(); i++){
-            warCheck();
+        warCheck();
+        if(endCase != null){
             warIteration();
+        }
+
             //nested check loop maybe
             /* if(checkDecks(playerOne) && checkDecks(playerTwo)){    //both are fine
                 System.out.println("Players have enough cards for war");
