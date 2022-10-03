@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 /**
  * Abstract player behaviors that every player should have.
- * @author Theresa Crawford
  */
 public interface PlayerBehavior {
     Cards getTopCard();
