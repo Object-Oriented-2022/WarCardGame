@@ -5,6 +5,7 @@ import com.card.Cards;
 import java.util.ArrayList;
 
 public class BehaviorOne extends Player{
+
     public BehaviorOne(ArrayList<Cards> deck, int number) {
         super(deck, number);
     }

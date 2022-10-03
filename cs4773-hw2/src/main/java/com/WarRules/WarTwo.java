@@ -11,22 +11,8 @@ public class WarTwo extends BaseRules{
         players = new ArrayList<>(Arrays.asList(playerOne, playerTwo));
         viablePlayers.addAll(players);
         while(emptyDeckCheck()){
-            resetRound();
             beginRound();
-
-            if(warCards.get(0).rank < warCards.get(1).rank){              //player 2 won
-                playerTwo.won(deckWon);
-                playerOne.lost();
-            }
-            else if(warCards.get(0).rank > warCards.get(1).rank){         //player 1 won
-                playerOne.won(deckWon);
-                playerTwo.lost();
-            }
-            else {
-                System.out.println(warCards.get(0).rank + " is equal to " + warCards.get(1).rank);
-                warPlayers.addAll(viablePlayers);
-                war();
-            }
+            compareCards();
         }
 
         if(endCase == null){
@@ -38,10 +24,20 @@ public class WarTwo extends BaseRules{
         deckSizes.add(playerTwo.getPoints());
         findWinner();
         endGame();
-
-        System.out.println(playerOne.deck.toString());
-        System.out.println(playerTwo.deck.toString());
     }
 
-
+    private static void compareCards() {
+        if(warCards.get(0).rank < warCards.get(1).rank){              //player 2 won
+            viablePlayers.get(1).won(deckWon);
+            viablePlayers.get(0).lost();
+        }
+        else if(warCards.get(0).rank > warCards.get(1).rank){         //player 1 won
+            viablePlayers.get(0).won(deckWon);
+            viablePlayers.get(1).lost();
+        }
+        else {
+            warPlayers.addAll(viablePlayers);
+            war();
+        }
+    }
 }

@@ -9,7 +9,6 @@ import java.util.List;
 
 public class WarThree extends BaseRules{
 
-
     public static void warThree (Player playerOne, Player playerTwo, Player playerThree) {
         players = new ArrayList<>(Arrays.asList(playerOne, playerTwo, playerThree));
         viablePlayers.addAll(players);
@@ -25,11 +24,6 @@ public class WarThree extends BaseRules{
         deckSizes.add(players.get(2).getPoints());
         findWinner();
         endGame();
-
-        System.out.println(players.get(0).deck.toString());
-        System.out.println(players.get(1).deck.toString());
-        System.out.println(players.get(2).deck.toString());
-
     }
     private static void compareCards(){
         List<Integer> ranks = new ArrayList<>();

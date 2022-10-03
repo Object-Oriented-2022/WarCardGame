@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 public class WarOne extends BaseRules{
 
-
     public static void warOne (int maxRounds, Player playerOne, Player playerTwo) {
         int currentRound = 0;
         players = new ArrayList<>(Arrays.asList(playerOne, playerTwo));
@@ -16,7 +15,6 @@ public class WarOne extends BaseRules{
         while(currentRound < maxRounds && emptyDeckCheck()){
             beginRound();
             compareCards();
-
             if(endCase != null)
                 break;
             currentRound++;
@@ -34,9 +32,6 @@ public class WarOne extends BaseRules{
         findWinner();
         endGame();
     }
-
-        //System.out.println(playerOne.deck.toString());
-        //System.out.println(playerTwo.deck.toString());
     private static void compareCards() {
         if(warCards.get(0).rank < warCards.get(1).rank){              //player 2 won
             viablePlayers.get(1).won(deckWon);
@@ -49,6 +44,4 @@ public class WarOne extends BaseRules{
             war();
         }
     }
-
-
 }

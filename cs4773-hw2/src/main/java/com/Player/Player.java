@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public abstract class Player implements PlayerBehavior {
     public int playerNum;
     public ArrayList<Cards> deck;
-    //public ArrayList<Cards> pointsWon;
     public Player(ArrayList<Cards> deck, int playerNum){
         this.playerNum = playerNum;
         this.deck = deck;

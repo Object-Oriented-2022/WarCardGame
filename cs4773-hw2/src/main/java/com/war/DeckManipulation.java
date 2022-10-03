@@ -8,7 +8,6 @@ import java.util.Random;
 
 public class DeckManipulation {
     public static void shuffleDeck (ArrayList<Cards> deck, int seed) {
-        //do we need to take into account no seed?
         Random random = new Random(seed);
         random.setSeed(seed);
 
@@ -60,8 +59,5 @@ public class DeckManipulation {
         splitDecks.add(threeThird);
         return splitDecks;
     }
-
-
-
 
 }

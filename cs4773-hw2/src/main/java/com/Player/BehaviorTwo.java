@@ -15,11 +15,9 @@ public class BehaviorTwo extends Player{
         pointsWon.addAll(deckWon);
         System.out.println("Player " + playerNum + " wins the round");
         System.out.println("Player " + playerNum + " has a score of " + pointsWon.size());
-        //System.out.println(pointsWon.toString());
     }
     public void lost(){
         System.out.println("Player " + playerNum + " has a score of " + pointsWon.size());
-        //System.out.println(pointsWon.toString());
     }
     public int getPoints(){
         return pointsWon.size();
