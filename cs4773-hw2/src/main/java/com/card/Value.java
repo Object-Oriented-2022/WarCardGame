@@ -1,5 +1,8 @@
 package com.card;
 
+/**
+ * Enumeration of Values for Cards Objects
+ */
 public enum Value {
         TWO,
         THREE,
