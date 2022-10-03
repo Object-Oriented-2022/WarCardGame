@@ -5,8 +5,7 @@ import static com.war.StartGame.startGame;
 
 public class App {
 	public static void main(String[] args) {
-	startGame();
-	gVersion();
-
+		startGame();
+		gVersion();
 	}
 }

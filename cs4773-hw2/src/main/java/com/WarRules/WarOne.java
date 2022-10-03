@@ -6,8 +6,18 @@ import com.war.EndCases;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Subclass to BaseRules, utilizes Super's methods to play a game of war, version 1.
+ */
 public class WarOne extends BaseRules{
-
+    /**
+     * Starts war card game version one. This game has 2 players and recycles cards back into
+     * the same deck. Returns nothing. Implements methods from
+     * Rules Class.
+     * @param maxRounds int number of round for a game
+     * @param playerOne Player obj
+     * @param playerTwo Player obj
+     */
     public static void warOne (int maxRounds, Player playerOne, Player playerTwo) {
         int currentRound = 0;
         players = new ArrayList<>(Arrays.asList(playerOne, playerTwo));

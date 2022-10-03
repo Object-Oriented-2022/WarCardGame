@@ -4,6 +4,9 @@ import com.card.Cards;
 
 import java.util.ArrayList;
 
+/**
+ * Subclass to Player that finishes interface required methods purely for BehaviorTwo
+ */
 public class BehaviorTwo extends Player{
     public ArrayList<Cards> pointsWon;
 

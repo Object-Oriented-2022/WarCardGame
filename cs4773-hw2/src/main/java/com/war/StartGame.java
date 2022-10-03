@@ -12,9 +12,7 @@ import java.util.Scanner;
 import static com.WarRules.WarOne.warOne;
 import static com.WarRules.WarThree.warThree;
 import static com.WarRules.WarTwo.warTwo;
-import static com.card.Cards.createDeck;
-import static com.war.DeckManipulation.halveDeck;
-import static com.war.DeckManipulation.thirdDeck;
+import static com.war.DeckManipulation.*;
 
 public class StartGame{
     static int gameVersion;

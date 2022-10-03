@@ -7,8 +7,19 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Subclass to BaseRules, utilizes Super's methods to play a game of war, version 3.
+ */
 public class WarThree extends BaseRules{
 
+    /**
+     * Starts war card game version 3. This version has 3 players and passes cards won
+     * to a separate points deck. Returns nothing. Implements methods from Base
+     * Rules Class.
+     * @param playerOne Player obj
+     * @param playerTwo Player obj
+     * @param playerThree Player obj
+     */
     public static void warThree (Player playerOne, Player playerTwo, Player playerThree) {
         players = new ArrayList<>(Arrays.asList(playerOne, playerTwo, playerThree));
         viablePlayers.addAll(players);
