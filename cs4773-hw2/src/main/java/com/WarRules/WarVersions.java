@@ -1,7 +1,8 @@
-package com.war;
+package com.WarRules;
 
 import com.Player.Player;
 import com.card.Cards;
+import com.war.EndCases;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,6 +42,23 @@ public class WarVersions {
             //winner = compareCards();
 
             //winner.won(deckWon);
+/*
+            List<Integer> ranks = new ArrayList<>();
+            warCards.forEach(card -> ranks.add(card.rank));
+            int highestCard = Collections.max(ranks);
+            int frequency = Collections.frequency(ranks, highestCard);
+            if(Collections.frequency(ranks, highestCard) == 1) {
+                winner = players.get(ranks.indexOf(highestCard));
+            }
+            else{
+
+                warPlayers.add(players.get(ranks.indexOf(highestCard)));
+                ranks.remove(highestCard);
+                warPlayers.add()
+            }
+                */
+                // warCards.get(ranks.indexOf(highestCard));
+
             if(warCards.get(0).rank < warCards.get(1).rank){              //player 2 won
                 playerTwo.won(deckWon);
             }
@@ -82,62 +100,30 @@ public class WarVersions {
         }
         return false;
     }
-
-    private static Player compareCards() {
-        /*if(onesCard.rank < twosCard.rank){              //player 2 won
-                playerTwo.won(deckWon);
-            }
-            else if(onesCard.rank > twosCard.rank){         //player 1 won
-                playerOne.won(deckWon);
-            }
-            else {
-                war(deckWon, new ArrayList<>(Arrays.asList(playerOne, playerTwo)));
-            }*/
-
-        Player winner = null;
-        ArrayList<Integer> ranks = new ArrayList<>();
-        for(Cards card: warCards){
-            ranks.add(card.rank);
-        }
+/*
+    private static Cards compareCards() {
+        List<Integer> ranks = new ArrayList<>();
+        warCards.forEach(card -> ranks.add(card.rank));
         int highestCard = Collections.max(ranks);
-        int frequency = Collections.frequency(ranks, highestCard);
-        if(frequency == 1){
-            int cardOwner = ranks.indexOf(highestCard);
-            ranks.remove(cardOwner);
-            winner = players.get(cardOwner);
-        } else {
-            for (int i = 0; i < ranks.size(); i++) {
-                int cardRank = ranks.get(i);
-                if (cardRank == highestCard) {
-                    warPlayers.add(players.get(i));
-                }
-            }
-            war();
-        }
-        return winner;
+        if(Collections.frequency(ranks, highestCard) == 1)
+            return warCards.get(ranks.indexOf(highestCard));
 
-        /*
-        int highestRank = -1;
-        for(int i = 0; i < warCards.size(); i++){
-            if(warCards.get(i).rank > highestRank){
-                winner = players.get(i);
-            } else if (warCards.get(i).rank == highestRank) {
-                warPlayers.add(winner);
-                warPlayers.add(players.get(i));
-            }
-        }
-        if(warPlayers.size() >= 2)
-            war();*/
-        /*if(onesCard.rank < twosCard.rank){              //player 2 won
+
+        if(warCards.get(0).rank < warCards.get(1).rank){              //player 2 won
             playerTwo.won(deckWon);
         }
-        else if(onesCard.rank > twosCard.rank){         //player 1 won
+        else if(warCards.get(0).rank > warCards.get(1).rank){         //player 1 won
             playerOne.won(deckWon);
         }
         else {
-            war(deckWon, new ArrayList<>(Arrays.asList(playerOne, playerTwo)));
-        }*/
-    }
+            warPlayers.addAll(players);
+            war();
+        }
+
+        return winner;
+
+
+    }*/
 
     //TODO: adjust for war v3
     private static void endGame() {
@@ -162,7 +148,7 @@ public class WarVersions {
     private static void printWinner() {
         if(winners.size() == 1) {
             System.out.print("Player " + winners.get(0).playerNum + " has won the game with ");
-            System.out.print(winners.get(0).getPoints() + " cards");
+            System.out.println(winners.get(0).getPoints() + " cards");
         } else {
             for (Player player : winners) {
                 System.out.print("Player " + player.playerNum + " has won the game with ");
@@ -228,7 +214,7 @@ played) and the game continues normally.*/
         //}
     }
 
-//Todo if one player is out of cards make sure game doesnt end if other 2 players have cards still
+//Todo if one player is out of cards make sure game doesn't end if other 2 players have cards still
     private static void warCheck() {
         int ablePlayers = warPlayers.size();
         boolean check = true;
@@ -350,7 +336,21 @@ played) and the game continues normally.*/
                 warPlayers.addAll(players);
                 war();
             }
+        }
 
+        if(endCase == null){
+           if(playerOne.getDeckSize() == 0 || playerOne.getDeckSize() == 0) {
+                endCase = EndCases.ONE_WINNER;
+            }
+        }
+        deckSizes.add(playerOne.getPoints());
+        deckSizes.add(playerTwo.getPoints());
+        findWinner();
+        endGame();
+
+        System.out.println(playerOne.deck.toString());
+        System.out.println(playerTwo.deck.toString());
+    }
             /*winner = compareCards();
 
             winner.won(deckWon);
@@ -380,25 +380,6 @@ played) and the game continues normally.*/
                 System.out.println(onesCard.rank + " is equal to " + twosCard.rank);
                 war();
             }*/
-
-        }
-
-        if(endCase == null){
-           if(playerOne.getDeckSize() == 0 || playerOne.getDeckSize() == 0) {
-                endCase = EndCases.ONE_WINNER;
-            }
-        }
-
-        //List<Integer> deckSizes = new ArrayList<>(Arrays.asList(playerOne.getPoints(), playerTwo.getPoints()));
-        deckSizes.add(playerOne.getPoints());
-        deckSizes.add(playerTwo.getPoints());
-        findWinner();
-        endGame();
-
-        System.out.println(playerOne.deck.toString());
-        System.out.println(playerTwo.deck.toString());
-
-    }
     //3) The three-player war game, but with one change. Cards that are won are placed in a separate points pile.
     // The winner is the player with most cards his/her in points pile at end of game.
     // If players do not have enough cards to complete a war, use the first listed possibility for ending the game.

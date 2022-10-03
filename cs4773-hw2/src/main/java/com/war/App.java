@@ -8,10 +8,12 @@ import com.card.Cards;
 import java.io.*;
 import java.util.*;
 
+import static com.WarRules.WarOne.WarOne;
+import static com.WarRules.WarThree.WarThree;
+import static com.WarRules.WarTwo.WarTwo;
 import static com.card.Cards.createDeck;
 import static com.war.DeckManipulation.halveDeck;
-import static com.war.WarVersions.warOne;
-import static com.war.WarVersions.warTwo;
+import static com.war.DeckManipulation.thirdDeck;
 
 public class App
 {
@@ -43,27 +45,33 @@ public class App
 		seedNumber = in.nextInt();
 
 		in.close();
-
+		List<ArrayList<Cards>> playerDecks = null;
 		ArrayList<Cards> deck = createDeck(seedNumber);
-		List<ArrayList<Cards>> playerDecks = halveDeck(deck);
+		if(gameVersion == 3){
+			playerDecks = thirdDeck(deck);
+		} else {
+			playerDecks = halveDeck(deck);
+		}
+
 		Player playerOne;
 		Player playerTwo;
 		switch(gameVersion){
 			case 1:
 				playerOne = new BehaviorOne(playerDecks.get(0), 1);
 				playerTwo= new BehaviorOne(playerDecks.get(1), 2);
-				warOne(maxNumRounds, playerOne, playerTwo);
+				WarOne(maxNumRounds, playerOne, playerTwo);
 				break;
 			case 2:
 				playerOne = new BehaviorTwo(playerDecks.get(0), 1);
 				playerTwo= new BehaviorTwo(playerDecks.get(1), 2);
-				warTwo(playerOne, playerTwo);
+				WarTwo(playerOne, playerTwo);
 				System.out.println("v2 " + maxNumRounds + " " + seedNumber);
 				break;
 			case 3:
-				/*playerOne = new BehaviorTwo(playerDecks.get(0), 1);
+				playerOne = new BehaviorTwo(playerDecks.get(0), 1);
 				playerTwo= new BehaviorTwo(playerDecks.get(1), 2);
-				Player playerThree = new BehaviorTwo(playerDecks.get(3), 3);*/
+				Player playerThree = new BehaviorTwo(playerDecks.get(3), 3);
+				WarThree(new ArrayList<>(Arrays.asList(playerOne, playerTwo, playerThree)));
 				System.out.println("v3 " + maxNumRounds + " " + seedNumber);
 				break;
 			default:
