@@ -70,8 +70,8 @@ public class App
 			case 3:
 				playerOne = new BehaviorTwo(playerDecks.get(0), 1);
 				playerTwo= new BehaviorTwo(playerDecks.get(1), 2);
-				Player playerThree = new BehaviorTwo(playerDecks.get(3), 3);
-				WarThree(new ArrayList<>(Arrays.asList(playerOne, playerTwo, playerThree)));
+				Player playerThree = new BehaviorTwo(playerDecks.get(2), 3);
+				WarThree(playerOne, playerTwo, playerThree);
 				System.out.println("v3 " + maxNumRounds + " " + seedNumber);
 				break;
 			default:

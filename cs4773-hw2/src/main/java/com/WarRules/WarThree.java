@@ -1,40 +1,27 @@
 package com.WarRules;
 
 import com.Player.Player;
-import com.card.Cards;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class WarThree extends BaseRules{
-    public static void WarThree (ArrayList<Player> players) {
-        while(players.get(0).getDeckSize() > 0 && players.get(1).getDeckSize() > 0 && players.get(2).getDeckSize() > 0){
+    public static void WarThree (Player playerOne, Player playerTwo, Player playerThree) {
+        players = new ArrayList<>(Arrays.asList(playerOne, playerTwo, playerThree));
+        while(!emptyDeckCheck()){
+            //beginRound();
             resetRound();
-            deckWon.clear();
-            Cards onesCard = players.get(0).flipCards();
-            Cards twosCard = players.get(1).flipCards();
-            Cards threesCard = players.get(2).flipCards();
-            ArrayList<Cards> cards = new ArrayList<>(Arrays.asList(onesCard, twosCard, threesCard));
+            warCards = pullCards(players);
+            printCardsPulled(warCards);
+            deckWon.addAll(warCards);
 
-            printCardsPulled(cards);
+            //ArrayList<Cards> cards = new ArrayList<>(Arrays.asList(onesCard, twosCard, threesCard));
 
-            ArrayList<Cards> deckWon = new ArrayList<>(Arrays.asList(onesCard, twosCard, threesCard));
-            if(onesCard.rank < twosCard.rank && threesCard.rank < twosCard.rank){              //player 2 won
-                players.get(1).won(deckWon);
-                players.get(0).lost();
-                players.get(2).lost();
-            } else if(onesCard.rank > twosCard.rank && onesCard.rank > threesCard.rank){         //player 1 won
-                players.get(0).won(deckWon);
-                players.get(1).lost();
-                players.get(2).lost();
-            } else if (onesCard.rank < threesCard.rank && threesCard.rank > twosCard.rank){              //player 2 won
-                players.get(2).won(deckWon);
-                players.get(0).lost();
-                players.get(1).lost();
-            } else {
-                System.out.println(onesCard.rank + " is equal to " + twosCard.rank + " is equal to " + threesCard.rank);
-                //war(deckWon, new ArrayList<>(Arrays.asList(players.get(0), players.get(1), players.get(2))));
-            }
+
+            //ArrayList<Cards> deckWon = new ArrayList<>(Arrays.asList(onesCard, twosCard, threesCard));
+            compareCards();
             if(endCase != null)
                 break;
         }
@@ -43,6 +30,7 @@ public class WarThree extends BaseRules{
         deckSizes.add(players.get(0).getPoints());
         deckSizes.add(players.get(1).getPoints());
         deckSizes.add(players.get(2).getPoints());
+        findWinner();
         endGame();
 
         System.out.println(players.get(0).deck.toString());
@@ -51,5 +39,44 @@ public class WarThree extends BaseRules{
 
     }
 
-    //compareCards
+    private static void compareCards(){
+
+        List<Integer> ranks = new ArrayList<>();
+        warCards.forEach(card -> ranks.add(card.rank));
+        int highestCard = Collections.max(ranks);
+        int frequency = Collections.frequency(ranks, highestCard);
+        if(frequency == 1) {
+            players.get(ranks.indexOf(highestCard)).won(deckWon);
+            for(int i = 0; i < players.size(); i++){
+                if(ranks.indexOf(highestCard) != i)
+                    players.get(i).lost();
+            }
+        } else if (frequency == 2) {
+            warPlayers.add(players.get(ranks.indexOf(highestCard)));
+            ranks.remove(ranks.indexOf(highestCard));
+            warPlayers.add(players.get(ranks.indexOf(highestCard)));
+            war();
+        } else if (frequency == 3){
+            warPlayers.addAll(players);
+            war();
+        }
+        /*
+        //
+        if(ranks.get(0) < ranks.get(1) && ranks.get(2) < ranks.get(1)){              //player 2 won
+            players.get(1).won(deckWon);
+            players.get(0).lost();
+            players.get(2).lost();
+        } else if(ranks.get(0) > ranks.get(1) && ranks.get(0) > ranks.get(2)){         //player 1 won
+            players.get(0).won(deckWon);
+            players.get(1).lost();
+            players.get(2).lost();
+        } else if (ranks.get(0) < ranks.get(2) && ranks.get(2) > ranks.get(1)){              //player 3 won
+            players.get(2).won(deckWon);
+            players.get(0).lost();
+            players.get(1).lost();
+        } else {
+            System.out.println(ranks.get(0) + " is equal to " + ranks.get(1) + " is equal to " + ranks.get(2));
+            //war(deckWon, new ArrayList<>(Arrays.asList(players.get(0), players.get(1), players.get(2))));
+        }*/
+    }
 }

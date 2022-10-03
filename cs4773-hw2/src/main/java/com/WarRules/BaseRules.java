@@ -10,7 +10,7 @@ import java.util.List;
 
 public abstract class BaseRules {
 
-    private static ArrayList<Player> winners = new ArrayList<>();
+    private static final ArrayList<Player> winners = new ArrayList<>();
     static Player winner = null;
     static EndCases endCase = null;
     static ArrayList<Cards> deckWon = new ArrayList<>();
@@ -20,6 +20,13 @@ public abstract class BaseRules {
     static ArrayList<Cards> warCards = new ArrayList<>();
 
     static List<Integer> deckSizes = new ArrayList<>();
+
+    static void beginRound(){
+        resetRound();
+        warCards = pullCards(players);
+        printCardsPulled(warCards);
+        deckWon.addAll(warCards);
+    }
 
     static boolean emptyDeckCheck(){
         for(Player player : players){
@@ -173,6 +180,8 @@ public abstract class BaseRules {
             war();
         }
     }
+
+
 
 }
 

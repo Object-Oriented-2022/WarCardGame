@@ -13,39 +13,9 @@ public class WarOne extends BaseRules{
         int currentRound = 0;
         players = new ArrayList<>(Arrays.asList(playerOne, playerTwo));
         while(currentRound < maxRounds && !emptyDeckCheck()){
-            resetRound();
-            warCards = pullCards(players);
-            printCardsPulled(warCards);
-            deckWon.addAll(warCards);
-            //set winner
+            beginRound();
             compareCards();
-/*
-            List<Integer> ranks = new ArrayList<>();
-            warCards.forEach(card -> ranks.add(card.rank));
-            int highestCard = Collections.max(ranks);
-            int frequency = Collections.frequency(ranks, highestCard);
-            if(Collections.frequency(ranks, highestCard) == 1) {
-                winner = players.get(ranks.indexOf(highestCard));
-            }
-            else{
 
-                warPlayers.add(players.get(ranks.indexOf(highestCard)));
-                ranks.remove(highestCard);
-                warPlayers.add()
-            }
-                */
-            // warCards.get(ranks.indexOf(highestCard));
-
-            /*if(warCards.get(0).rank < warCards.get(1).rank){              //player 2 won
-                playerTwo.won(deckWon);
-            }
-            else if(warCards.get(0).rank > warCards.get(1).rank){         //player 1 won
-                playerOne.won(deckWon);
-            }
-            else {
-                warPlayers.addAll(players);
-                war();
-            }*/
             if(endCase != null)
                 break;
             currentRound++;
@@ -58,16 +28,14 @@ public class WarOne extends BaseRules{
                 endCase = EndCases.ONE_WINNER;
             }
         }
-
         deckSizes.add(playerOne.getPoints());
         deckSizes.add(playerTwo.getPoints());
-        System.out.println(playerOne.deck.toString());
-        System.out.println(playerTwo.deck.toString());
         findWinner();
         endGame();
-
     }
 
+        //System.out.println(playerOne.deck.toString());
+        //System.out.println(playerTwo.deck.toString());
     private static void compareCards() {
         if(warCards.get(0).rank < warCards.get(1).rank){              //player 2 won
             players.get(1).won(deckWon);

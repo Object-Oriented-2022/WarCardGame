@@ -52,7 +52,7 @@ public class DeckManipulation {
                 twoThird.add(deck.get(i));
             }
             if( i >= 35 ) {
-                twoThird.add(deck.get(i));
+                threeThird.add(deck.get(i));
             }
         }
         splitDecks.add(oneThird);
