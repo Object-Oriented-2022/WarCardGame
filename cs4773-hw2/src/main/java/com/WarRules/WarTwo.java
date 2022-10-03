@@ -7,13 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class WarTwo extends BaseRules{
-    public static void WarTwo (Player playerOne, Player playerTwo) {
+    public static void warTwo (Player playerOne, Player playerTwo) {
         players = new ArrayList<>(Arrays.asList(playerOne, playerTwo));
-        while(!emptyDeckCheck()){
+        viablePlayers.addAll(players);
+        while(emptyDeckCheck()){
             resetRound();
-            warCards = pullCards(players);
-            printCardsPulled(warCards);
-            deckWon.addAll(warCards);
+            beginRound();
 
             if(warCards.get(0).rank < warCards.get(1).rank){              //player 2 won
                 playerTwo.won(deckWon);
@@ -25,7 +24,7 @@ public class WarTwo extends BaseRules{
             }
             else {
                 System.out.println(warCards.get(0).rank + " is equal to " + warCards.get(1).rank);
-                warPlayers.addAll(players);
+                warPlayers.addAll(viablePlayers);
                 war();
             }
         }

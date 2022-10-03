@@ -12,12 +12,6 @@ public abstract class Player implements PlayerBehavior {
         this.deck = deck;
     }
 
-
-    /*
-    public Player(ArrayList<Cards> deck, ArrayList<Cards> pointsWon){
-        this.deck = deck;
-        this.pointsWon = pointsWon;
-    }*/
     public Cards getTopCard(){
         return this.deck.get(0);
     }

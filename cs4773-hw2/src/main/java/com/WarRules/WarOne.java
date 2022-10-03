@@ -9,10 +9,11 @@ import java.util.Arrays;
 public class WarOne extends BaseRules{
 
 
-    public static void WarOne (int maxRounds, Player playerOne, Player playerTwo) {
+    public static void warOne (int maxRounds, Player playerOne, Player playerTwo) {
         int currentRound = 0;
         players = new ArrayList<>(Arrays.asList(playerOne, playerTwo));
-        while(currentRound < maxRounds && !emptyDeckCheck()){
+        viablePlayers.addAll(players);
+        while(currentRound < maxRounds && emptyDeckCheck()){
             beginRound();
             compareCards();
 
@@ -38,13 +39,13 @@ public class WarOne extends BaseRules{
         //System.out.println(playerTwo.deck.toString());
     private static void compareCards() {
         if(warCards.get(0).rank < warCards.get(1).rank){              //player 2 won
-            players.get(1).won(deckWon);
+            viablePlayers.get(1).won(deckWon);
         }
         else if(warCards.get(0).rank > warCards.get(1).rank){         //player 1 won
-            players.get(0).won(deckWon);
+            viablePlayers.get(0).won(deckWon);
         }
         else {
-            warPlayers.addAll(players);
+            warPlayers.addAll(viablePlayers);
             war();
         }
     }

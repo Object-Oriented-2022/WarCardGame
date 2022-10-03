@@ -15,6 +15,7 @@ public abstract class BaseRules {
     static EndCases endCase = null;
     static ArrayList<Cards> deckWon = new ArrayList<>();
     static ArrayList<Player> players = new ArrayList<>();
+    static ArrayList<Player> viablePlayers = new ArrayList<>();
 
     static ArrayList<Player> warPlayers = new ArrayList<>();
     static ArrayList<Cards> warCards = new ArrayList<>();
@@ -23,7 +24,7 @@ public abstract class BaseRules {
 
     static void beginRound(){
         resetRound();
-        warCards = pullCards(players);
+        warCards = pullCards(viablePlayers);
         printCardsPulled(warCards);
         deckWon.addAll(warCards);
     }
@@ -31,11 +32,14 @@ public abstract class BaseRules {
     static boolean emptyDeckCheck(){
         for(Player player : players){
             if(player.getDeckSize() == 0) {
-                endCase = EndCases.ONE_WINNER;
-                return true;
+                viablePlayers.remove(player);
             }
         }
-        return false;
+        if(viablePlayers.size() <= 1){
+            endCase = EndCases.ONE_WINNER;
+            return false;
+        }
+        return true;
     }
 
     static void resetRound(){
