@@ -24,7 +24,7 @@ public class StartGame{
 
     /**
      * StartGame opens the command line for a user to enter data that will
-     * then start the War game.
+     * then start the War game..
      */
 
     public static void startGame(){
