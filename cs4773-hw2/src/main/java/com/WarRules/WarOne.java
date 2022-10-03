@@ -18,9 +18,7 @@ public class WarOne extends BaseRules{
             printCardsPulled(warCards);
             deckWon.addAll(warCards);
             //set winner
-            //winner = compareCards();
-
-            //winner.won(deckWon);
+            compareCards();
 /*
             List<Integer> ranks = new ArrayList<>();
             warCards.forEach(card -> ranks.add(card.rank));
@@ -38,7 +36,7 @@ public class WarOne extends BaseRules{
                 */
             // warCards.get(ranks.indexOf(highestCard));
 
-            if(warCards.get(0).rank < warCards.get(1).rank){              //player 2 won
+            /*if(warCards.get(0).rank < warCards.get(1).rank){              //player 2 won
                 playerTwo.won(deckWon);
             }
             else if(warCards.get(0).rank > warCards.get(1).rank){         //player 1 won
@@ -47,7 +45,7 @@ public class WarOne extends BaseRules{
             else {
                 warPlayers.addAll(players);
                 war();
-            }
+            }*/
             if(endCase != null)
                 break;
             currentRound++;
@@ -70,6 +68,18 @@ public class WarOne extends BaseRules{
 
     }
 
+    private static void compareCards() {
+        if(warCards.get(0).rank < warCards.get(1).rank){              //player 2 won
+            players.get(1).won(deckWon);
+        }
+        else if(warCards.get(0).rank > warCards.get(1).rank){         //player 1 won
+            players.get(0).won(deckWon);
+        }
+        else {
+            warPlayers.addAll(players);
+            war();
+        }
+    }
 
 
 }

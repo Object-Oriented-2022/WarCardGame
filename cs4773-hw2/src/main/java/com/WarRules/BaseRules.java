@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BaseRules {
+public abstract class BaseRules {
 
     private static ArrayList<Player> winners = new ArrayList<>();
     static Player winner = null;
@@ -157,10 +157,10 @@ public class BaseRules {
         deckWon.addAll(warCards);
         //TODO PRINT CARDS PULLED INTO ARRAYLIST
         printCardsPulled(warCards);
+        compareCards(warCards);
+    }
 
-        //determineCard
-        //winner = compareCards();
-        //winner.won(deckWon);
+    private static void compareCards(ArrayList<Cards> warCards){
         if (warCards.get(0).rank < warCards.get(1).rank) {              //player 2 won
             //player two wins add all 6 cards to points pile
             warPlayers.get(1).won(deckWon);
@@ -173,4 +173,7 @@ public class BaseRules {
             war();
         }
     }
+
 }
+
+

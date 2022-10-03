@@ -50,4 +50,6 @@ public class WarThree extends BaseRules{
         System.out.println(players.get(2).deck.toString());
 
     }
+
+    //compareCards
 }
