@@ -202,7 +202,7 @@ played) and the game continues normally.*/
         System.out.println("*** WAR! ***");
         //for(int i = 0; i < players.size(); i++){
         warCheck();
-        if(endCase != null){
+        if(endCase == null){
             warIteration();
         }
 
