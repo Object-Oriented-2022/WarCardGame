@@ -1,5 +1,8 @@
 package com.war;
 
+/**
+ * Winner cases that can end a game.
+ */
 public enum EndCases {
     ONE_WINNER,
     RAN_OUT,
