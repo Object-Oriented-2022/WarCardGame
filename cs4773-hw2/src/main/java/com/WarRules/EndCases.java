@@ -1,4 +1,4 @@
-package com.war;
+package com.WarRules;
 
 /**
  * Winner cases that can end a game.
