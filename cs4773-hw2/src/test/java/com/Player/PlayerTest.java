@@ -39,6 +39,5 @@ public class PlayerTest extends TestCase {
         Player player1 = new BehaviorOne(halveDeck(deck).get(0), 1);
         assertEquals(26, player1.getDeckSize());
         System.out.println("Deck size for player should be 26\n" + player1.deck);
-
     }
 }
