@@ -3,7 +3,7 @@
 
 ### **OCP:** 
 
-PlayerBehavior interface with player class that implements and behaviorone and behaviortwo classes extending player class
+PlayerBehavior interface with player class that implements and BehaviorOne and BehaviorTwo classes extending Player class. The interface keeps players closed to adjustments while having the Player class only implement the uniform functions allows it to be open to more implementations of war in the future.
 
 ### **Information Experts:**
 
