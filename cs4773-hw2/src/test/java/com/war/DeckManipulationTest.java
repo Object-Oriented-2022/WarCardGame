@@ -2,11 +2,13 @@ package com.war;
 
 import com.card.Cards;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.card.Suit.HEARTS;
+import static com.card.Suit.SPADES;
 import static com.card.Value.THREE;
 import static com.war.DeckManipulation.*;
 
@@ -53,6 +55,16 @@ public class DeckManipulationTest extends TestCase {
         System.out.println(splitDeck.get(1));
         System.out.println(splitDeck.get(2));
     }
-
+    public void testShuffleDeck() {
+        ArrayList<Cards> deck = createDeck(1);
+        Cards topCardBefore = deck.get(0);
+        System.out.println("Deck before shuffling:");
+        System.out.println(deck);
+        shuffleDeck(deck, 1);
+        Cards topCardAfter = deck.get(0);
+        assertNotSame(topCardBefore, topCardAfter);
+        System.out.println("Deck after shuffling:");
+        System.out.println(deck);
+    }
 
 }
