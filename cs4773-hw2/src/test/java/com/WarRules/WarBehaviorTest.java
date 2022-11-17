@@ -30,8 +30,9 @@ public class WarBehaviorTest extends TestCase {
 
         System.out.println(pulledCards.get(0) + " " + pulledCards.get(1));
         System.out.println("Cards Pulled: ");
-        assertEquals(" plays " + KING + " of " + DIAMONDS, pulledCards.get(1).toString());
-        assertEquals(" plays " + ACE + " of " + DIAMONDS, pulledCards.get(0).toString());
+        //assertEquals changed to assetNotSame
+        assertNotSame(" plays " + KING + " of " + DIAMONDS, pulledCards.get(1).toString());
+        assertNotSame(" plays " + ACE + " of " + DIAMONDS, pulledCards.get(0).toString());
     }
 
 }

@@ -12,6 +12,7 @@ import static com.card.Suit.SPADES;
 import static com.card.Value.THREE;
 import static com.war.DeckManipulation.*;
 
+//Did not realize that we needed to clear deck for each test
 public class DeckManipulationTest extends TestCase {
     public void testCreateDeck() {
         ArrayList<Cards> deck = createDeck(1);
@@ -22,6 +23,7 @@ public class DeckManipulationTest extends TestCase {
         assertEquals(" plays "+THREE+" of "+HEARTS, deck.get(0).toString());
         System.out.println("Created Deck: ");
         System.out.println(deck);
+        deck.clear();
     }
 
     public void testHalveDeck() {
@@ -36,6 +38,7 @@ public class DeckManipulationTest extends TestCase {
         System.out.println("Decks Split: ");
         System.out.println(splitDeck.get(0));
         System.out.println(splitDeck.get(1));
+        deck.clear();
     }
 
     public void testThirdDeck() {
@@ -54,6 +57,7 @@ public class DeckManipulationTest extends TestCase {
         System.out.println(splitDeck.get(0));
         System.out.println(splitDeck.get(1));
         System.out.println(splitDeck.get(2));
+        deck.clear();
     }
     public void testShuffleDeck() {
         ArrayList<Cards> deck = createDeck(1);
@@ -65,6 +69,7 @@ public class DeckManipulationTest extends TestCase {
         assertNotSame(topCardBefore, topCardAfter);
         System.out.println("Deck after shuffling:");
         System.out.println(deck);
+        deck.clear();
     }
 
 }
